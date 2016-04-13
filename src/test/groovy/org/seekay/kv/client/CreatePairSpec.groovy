@@ -28,7 +28,6 @@ class CreatePairSpec extends Specification {
         then:
             createdPair.key == 'name'
             createdPair.value == 'create key value pair, test 0001'
-
     }
 
 }
