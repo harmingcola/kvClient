@@ -8,5 +8,43 @@
 	<artifactId>keyValueClient</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
+	<properties>
+		<contract.version>0.0.1-SNAPSHOT</contract.version>
+        <http.client.version>4.4.1</http.client.version>
+        <jackson.version>2.4.4</jackson.version>
+        <spock.version>1.0-groovy-2.0</spock.version>
+	</properties>
+
+
+	<dependencies>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${http.client.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+
+        <!-- Test Dependancies -->
+		<dependency>
+			<groupId>org.seekay</groupId>
+			<artifactId>contract-server</artifactId>
+			<version>${contract.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <scope>test</scope>
+            <version>${spock.version}</version>
+        </dependency>
+	</dependencies>
 
 </project>
