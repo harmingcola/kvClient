@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -49,4 +50,18 @@ public class KvClient {
         return createdPair;
     }
 
+	public Pair read(String key) {
+		Pair readPair = null;
+		try {
+			String url = path + "/pair/" + key;
+			HttpGet get = new HttpGet(url);
+			HttpResponse response = httpclient.execute(get);
+			String responseBody = EntityUtils.toString(response.getEntity());
+			return objectMapper.readValue(responseBody.getBytes(), Pair.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return readPair;
+	}
 }

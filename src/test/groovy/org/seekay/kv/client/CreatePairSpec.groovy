@@ -17,7 +17,6 @@ class CreatePairSpec extends Specification {
                 .onRandomPort()
                 .withGitConfig('https://github.com/harmingcola/kvContracts')
                 .startServer()
-
         client = new KvClient(server.path() + '/kv')
     }
 
