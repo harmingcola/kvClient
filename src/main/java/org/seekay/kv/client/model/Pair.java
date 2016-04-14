@@ -1,4 +1,4 @@
-package org.seekay.kv.client;
+package org.seekay.kv.client.model;
 
 public class Pair {
 

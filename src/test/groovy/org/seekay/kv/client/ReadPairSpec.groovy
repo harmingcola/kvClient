@@ -1,25 +1,9 @@
 package org.seekay.kv.client
 
-import org.seekay.contract.server.ContractServer
-import spock.lang.Shared
-import spock.lang.Specification
+import org.seekay.kv.client.model.Pair
+import org.seekay.kv.client.util.ClientBaseSpec
 
-class ReadPairSpec extends Specification {
-
-	@Shared
-	ContractServer server
-
-	@Shared
-	KvClient client
-
-	def setupSpec() {
-		server = ContractServer.newServer()
-				.onRandomPort()
-				.withGitConfig('https://github.com/harmingcola/kvContracts')
-				.startServer()
-
-		client = new KvClient(server.path() + '/kv')
-	}
+class ReadPairSpec extends ClientBaseSpec {
 
 	def 'a pair should be created and returned on the server'() {
 		when:
@@ -27,7 +11,6 @@ class ReadPairSpec extends Specification {
 		then:
 			createdPair.key == 'weight'
 			createdPair.value == '220'
-
 	}
 
 }
