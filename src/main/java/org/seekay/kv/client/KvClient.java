@@ -6,6 +6,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -64,4 +65,28 @@ public class KvClient {
 
 		return readPair;
 	}
+
+    public Pair update(Pair pair) {
+        Pair createdPair = null;
+        try {
+            String payload  = objectMapper.writeValueAsString(pair);
+            String url = path + "/pair";
+            HttpPut put = new HttpPut(url);
+            put.addHeader("Content-Type", "application/json");
+            put.setEntity(new StringEntity(payload));
+            HttpResponse response = httpclient.execute(put);
+            String responseBody = EntityUtils.toString(response.getEntity());
+            return objectMapper.readValue(responseBody.getBytes(), Pair.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return createdPair;
+    }
 }
