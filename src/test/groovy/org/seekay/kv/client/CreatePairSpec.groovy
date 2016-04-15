@@ -9,7 +9,7 @@ class CreatePairSpec extends ClientBaseSpec {
         given:
             Pair pair = new Pair( key:'name', value:'create key value pair, test 0001')
         when:
-            Pair createdPair = client.create(pair)
+            Pair createdPair = kvClient.create(pair)
         then:
             createdPair.key == 'name'
             createdPair.value == 'create key value pair, test 0001'

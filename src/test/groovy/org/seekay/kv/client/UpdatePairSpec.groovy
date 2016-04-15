@@ -9,7 +9,7 @@ class UpdatePairSpec extends ClientBaseSpec {
         given:
             Pair pair = new Pair( key:'height', value:'180')
         when:
-            Pair updatedPair = client.update(pair)
+            Pair updatedPair = kvClient.update(pair)
         then:
             updatedPair.key == 'height'
             updatedPair.value == '180'

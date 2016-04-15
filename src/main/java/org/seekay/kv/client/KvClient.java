@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -48,7 +49,6 @@ public class KvClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return createdPair;
     }
 
@@ -63,7 +63,6 @@ public class KvClient {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		return readPair;
 	}
 
@@ -87,7 +86,24 @@ public class KvClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return createdPair;
+    }
+
+    public boolean delete(String key) {
+        try {
+            String url = path + "/pair/" + key ;
+            HttpDelete delete = new HttpDelete(url);
+            HttpResponse response = httpclient.execute(delete);
+            return response.getStatusLine().getStatusCode() == 204;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

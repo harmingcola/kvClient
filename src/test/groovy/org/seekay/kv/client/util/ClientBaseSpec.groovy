@@ -9,7 +9,7 @@ class ClientBaseSpec extends Specification {
 
     @Shared ContractServer server;
 
-    @Shared KvClient client;
+    @Shared KvClient kvClient;
 
     @Shared Session session
 
@@ -27,6 +27,6 @@ class ClientBaseSpec extends Specification {
             session.setContractServer(server)
         }
 
-        client = new KvClient(server.path() + '/kv')
+        kvClient = new KvClient(server.path() + '/kv')
     }
 }

@@ -7,7 +7,7 @@ class ReadPairSpec extends ClientBaseSpec {
 
 	def 'a pair should be created and returned on the server'() {
 		when:
-			Pair createdPair = client.read('weight')
+			Pair createdPair = kvClient.read('weight')
 		then:
 			createdPair.key == 'weight'
 			createdPair.value == '220'
