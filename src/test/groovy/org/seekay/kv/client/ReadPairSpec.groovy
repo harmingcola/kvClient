@@ -12,5 +12,4 @@ class ReadPairSpec extends ClientBaseSpec {
 			createdPair.key == 'weight'
 			createdPair.value == '220'
 	}
-
 }

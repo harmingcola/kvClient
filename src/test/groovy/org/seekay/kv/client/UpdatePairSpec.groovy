@@ -14,5 +14,4 @@ class UpdatePairSpec extends ClientBaseSpec {
             updatedPair.key == 'height'
             updatedPair.value == '180'
     }
-
 }
