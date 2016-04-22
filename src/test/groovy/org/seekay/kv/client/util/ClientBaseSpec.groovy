@@ -21,7 +21,7 @@ class ClientBaseSpec extends Specification {
         if(server == null) {
             server = ContractServer.newServer()
                     .onRandomPort()
-                    .withGitConfig('https://github.com/harmingcola/kvContracts')
+                    .withGitConfig('https://github.com/harmingcola/kvServerContracts')
                     .startServer()
 
             session.setContractServer(server)

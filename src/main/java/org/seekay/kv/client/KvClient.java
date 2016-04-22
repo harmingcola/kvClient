@@ -106,4 +106,18 @@ public class KvClient {
         }
         return false;
     }
+
+    public long requestTime() {
+        long time = 0;
+        try {
+            String url = path + "/service/times";
+            HttpGet get = new HttpGet(url);
+            HttpResponse response = httpclient.execute(get);
+            String responseBody = EntityUtils.toString(response.getEntity());
+            return Long.valueOf(responseBody);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return time;
+    }
 }

@@ -1,4 +1,4 @@
-package org.seekay.kv.client
+package org.seekay.kv.client.pair
 
 import org.seekay.kv.client.model.Pair
 import org.seekay.kv.client.util.ClientBaseSpec
