@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -37,6 +34,7 @@ public class KvClient {
             HttpPost post = new HttpPost(url);
             post.addHeader("Content-Type","application/json");
             post.setEntity(new StringEntity(payload));
+			addMandatoryHeader(post);
             HttpResponse response = httpclient.execute(post);
             String responseBody = EntityUtils.toString(response.getEntity());
             return objectMapper.readValue(responseBody.getBytes(), Pair.class);
@@ -52,12 +50,17 @@ public class KvClient {
         return createdPair;
     }
 
+	private void addMandatoryHeader(HttpUriRequest request) {
+		request.addHeader("source-app", "kvClient");
+	}
+
 	public Pair read(String key) {
 		Pair readPair = null;
 		try {
 			String url = path + "/pair/" + key;
 			HttpGet get = new HttpGet(url);
 			HttpResponse response = httpclient.execute(get);
+			addMandatoryHeader(get);
 			String responseBody = EntityUtils.toString(response.getEntity());
 			return objectMapper.readValue(responseBody.getBytes(), Pair.class);
 		} catch (IOException e) {
@@ -74,6 +77,7 @@ public class KvClient {
             HttpPut put = new HttpPut(url);
             put.addHeader("Content-Type", "application/json");
             put.setEntity(new StringEntity(payload));
+			addMandatoryHeader(put);
             HttpResponse response = httpclient.execute(put);
             String responseBody = EntityUtils.toString(response.getEntity());
             return objectMapper.readValue(responseBody.getBytes(), Pair.class);
@@ -93,6 +97,7 @@ public class KvClient {
         try {
             String url = path + "/pair/" + key ;
             HttpDelete delete = new HttpDelete(url);
+			addMandatoryHeader(delete);
             HttpResponse response = httpclient.execute(delete);
             return response.getStatusLine().getStatusCode() == 204;
         } catch (JsonProcessingException e) {
@@ -112,6 +117,7 @@ public class KvClient {
         try {
             String url = path + "/service/times";
             HttpGet get = new HttpGet(url);
+			addMandatoryHeader(get);
             HttpResponse response = httpclient.execute(get);
             String responseBody = EntityUtils.toString(response.getEntity());
             return Long.valueOf(responseBody);
