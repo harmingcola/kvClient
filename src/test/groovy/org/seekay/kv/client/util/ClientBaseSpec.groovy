@@ -27,6 +27,6 @@ class ClientBaseSpec extends Specification {
             session.setContractServer(server)
         }
 
-        kvClient = new KvClient(server.path() + '/kv')
+        kvClient = new KvClient(server.path())
     }
 }

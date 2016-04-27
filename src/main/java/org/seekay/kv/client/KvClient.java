@@ -24,7 +24,7 @@ public class KvClient {
     private CloseableHttpClient httpclient = HttpClients.createDefault();
 
     public KvClient(String path) {
-        this.path = path;
+        this.path = path + "/kv";
     }
 
     public Pair create(Pair pair) {
@@ -51,19 +51,16 @@ public class KvClient {
         return createdPair;
     }
 
-	private void addMandatoryHeader(HttpUriRequest request) {
-		request.addHeader("source-app", "kvClient");
-	}
-
 	public Pair read(String key) {
 		Pair readPair = null;
 		try {
 			String url = path + "/pair/" + key;
 			HttpGet get = new HttpGet(url);
-			HttpResponse response = httpclient.execute(get);
-			addMandatoryHeader(get);
-			String responseBody = EntityUtils.toString(response.getEntity());
-			return objectMapper.readValue(responseBody.getBytes(), Pair.class);
+            addMandatoryHeader(get);
+            HttpResponse response = httpclient.execute(get);
+            String responseBody = EntityUtils.toString(response.getEntity());
+            System.out.println("Response received : " );
+            return objectMapper.readValue(responseBody.getBytes(), Pair.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -141,5 +138,9 @@ public class KvClient {
             e.printStackTrace();
         }
         return results;
+    }
+
+    private void addMandatoryHeader(HttpUriRequest request) {
+        request.addHeader("source-app", "kvClient");
     }
 }

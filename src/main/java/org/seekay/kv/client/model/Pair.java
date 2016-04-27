@@ -6,7 +6,19 @@ public class Pair {
 
     private String value;
 
+    // Keeping object mapper happy
+    public Pair () {
+        this.key = null;
+        this.value = null;
+    }
+
+    public Pair(String key, String value) {
+        this.key = key;
+        this.value = value;
+    }
+
     public String getValue() {
+
         return value;
     }
 
@@ -22,4 +34,11 @@ public class Pair {
         this.key = key;
     }
 
+    @Override
+    public String toString() {
+        return "Pair{" +
+                "key='" + key + '\'' +
+                ", value='" + value + '\'' +
+                '}';
+    }
 }
