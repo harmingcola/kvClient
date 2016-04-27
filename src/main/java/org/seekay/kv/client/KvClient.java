@@ -13,6 +13,7 @@ import org.seekay.kv.client.model.Pair;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 public class KvClient {
 
@@ -125,5 +126,20 @@ public class KvClient {
             e.printStackTrace();
         }
         return time;
+    }
+
+    public List<Pair> search(String key) {
+        List<Pair> results = null;
+        try {
+            String url = path + "/pair?key=" + key;
+            HttpGet get = new HttpGet(url);
+            HttpResponse response = httpclient.execute(get);
+            addMandatoryHeader(get);
+            String responseBody = EntityUtils.toString(response.getEntity());
+            return objectMapper.readValue(responseBody.getBytes(), List.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return results;
     }
 }
