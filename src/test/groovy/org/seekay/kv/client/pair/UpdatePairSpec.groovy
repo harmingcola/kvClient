@@ -7,11 +7,13 @@ class UpdatePairSpec extends ClientBaseSpec {
 
     def 'a pair should be updatable on the server'() {
         given:
-            Pair pair = new Pair('height', '180')
+            Pair pair = new Pair('height-json', '100')
+            pair = kvClient.create(pair);
         when:
-            Pair updatedPair = kvClient.update(pair)
+            pair.setValue('180')
+            pair = kvClient.update(pair)
         then:
-            updatedPair.key == 'height'
-            updatedPair.value == '180'
+            pair.key == 'height-json'
+            pair.value == '180'
     }
 }
